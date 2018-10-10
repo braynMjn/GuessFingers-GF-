@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>HowManyFingers???</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        .hand{
+                cursor: pointer;
+                transition: all 0.2s ease;
+                opacity: 0.75;
+                margin-right: 30px;
+                margin-bottom: 30px;
+        }
+        
+        .hand:hover{
+            
+            height: 100px;
+            width: 100px;
+            margin-top: -15px;
+            margin-left: -15px;
+            opacity: 1;
+                
+        }
+        
+        #game{
+            width: 650px;
+            margin: 0 auto; 
+            text-align: center;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div id="game">
+        <h1>How many fingers am I holding up?</h1>
+        <img src="qst.jpg" height="250" width="400"><br><br>
+        <img src="0.jpg" height="70" width="70" class="hand" onclick="clickHandle(0)">
+        <img src="1.jpg" height="70" width="70" class="hand" onclick="clickHandle(1)">
+        <img src="2.jpg" height="70" width="70" class="hand" onclick="clickHandle(2)"><br>
+        <img src="3.jpg" height="70" width="70" class="hand" onclick="clickHandle(3)">
+        <img src="4.jpg" height="70" width="70" class="hand" onclick="clickHandle(4)">
+        <img src="5.jpg" height="70" width="70" class="hand" onclick="clickHandle(5)"><br><br>
+
+    </div>
+
+    <script type="text/javascript">
+        //Generate random number.
+        var rand = Math.floor(Math.abs(Math.random() * 10 - 4));
+        console.log(rand);
+
+        function clickHandle(n) {
+            console.log(n);
+            if (n == rand) {
+                alert("Damn, You're good at guessing!!!")
+            } else
+                alert("You suck!!!")
+            rand = Math.floor(Math.abs(Math.random() * 10 - 4));
+        }
+
+    </script>
+</body>
+
+</html>
