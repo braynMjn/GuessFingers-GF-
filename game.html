@@ -1,0 +1,208 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>HowManyFingers???</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        body{
+            overflow: hidden;
+        }
+        h1{
+            color: cornflowerblue;
+            font-family: cursive;
+        }
+        
+        a{
+            color: cornflowerblue;
+            font-family: cursive;
+            font-size: 22px;
+            float: left;
+            text-decoration: none;
+        }
+        
+        .hand{
+                cursor: pointer;
+                transition: all 0.2s ease;
+                opacity: 0.75;
+                margin-right: 30px;
+                margin-bottom: 30px;
+        }
+        
+        .hand:hover{
+            
+            height: 100px;
+            width: 100px;
+            margin-top: -15px;
+            margin-left: -15px;
+            opacity: 1;
+                
+        }
+        
+        #game{
+            width: 645px;
+            margin: 0 auto; 
+            text-align: center;
+            
+        }
+        
+        
+        #popup{
+            display: none;
+            width: 400px;
+            height: 400px;
+            position: absolute;
+            z-index: 100;
+            top: calc(50% - 200px);
+            left: calc(50% - 200px);
+        }
+        
+        #score{
+                font-family: cursive;
+                font-size: 22px;
+                color: royalblue; 
+        }
+        
+        #lives{
+                /* font-family: cursive;
+                font-size: 22px;
+                color: royalblue;  */
+                width: 100%;
+                height: 50px;
+        }
+        #lives ul{
+            margin: 0;
+            padding: 0;
+        }
+
+        #lives ul li{
+            list-style-type: none;
+            float: left;
+            padding: 0;
+            margin:0;
+        }
+
+        #lives ul li img{
+            float: left;
+            width: 75%;
+            height: 75%;
+        }
+        .monkey{
+            margin-top: -25px;
+            z-index: 100;
+        }
+
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+</head>
+
+<body>
+
+    <div id="game">
+        <h1>How many fingers am I holding up?</h1>
+        <div id="mfing"></div>
+        <img src="qsn.png" height="175" width="200"><br><br><br>
+
+        <div id="lives">
+            
+        </div>
+
+        <!-- <label id="lives">Lives: 13</label><br> -->
+
+
+        <label id="score">Score: 0</label><br><br>
+        <img src="0.jpg" height="70" width="70" class="hand" onclick="clickHandle(0)">
+        <img src="1.jpg" height="70" width="70" class="hand" onclick="clickHandle(1)">
+        <img src="2.jpg" height="70" width="70" class="hand" onclick="clickHandle(2)"><br>
+        <img src="3.jpg" height="70" width="70" class="hand" onclick="clickHandle(3)">
+        <img src="4.jpg" height="70" width="70" class="hand" onclick="clickHandle(4)">
+        <img src="5.jpg" height="70" width="70" class="hand" onclick="clickHandle(5)"><br><br>
+
+        <img id="popup">
+    </div>
+
+    <script type="text/javascript">
+        //Generate random number.
+        var rand = Math.floor(Math.abs(Math.random() * 10 - 4));
+        var allowClick = true;
+        var score = 0;
+        var lives=13;
+
+        function clickHandle(n) {
+
+            //do not execute if allow click is false.
+            if (!allowClick) return;
+
+            allowClick = false;
+            if (n == rand) {
+                //               
+                customAlert("win");
+            } else {
+                customAlert("lose");
+            }
+            rand = Math.floor(Math.abs(Math.random() * 10 - 4));
+
+        }
+        
+
+        function customAlert(type) {
+            var popup = document.getElementById("popup");
+
+
+            if (type === "win") {
+                document.getElementById("score").innerHTML = "Score: " + ++score;
+                popup.src = "thumsUp.png";
+            } else {
+                popup.src = "mfing.png";
+                --lives;
+                if(lives==0) window.location.href ="gameOver.html";
+                
+                renderLives();
+            }
+
+
+            popup.style.display = "block";
+            popup.className = "animated zoomIn";
+
+            setTimeout(function() {
+                popup.className = "animated zoomOut";
+            }, 1000);
+
+            setTimeout(function() {
+                popup.style.display = "none";
+                allowClick = true;
+            }, 1250);
+        }
+        
+
+        function renderLives(){
+            var livesDiv = document.getElementById("lives");
+            livesDiv.innerHTML="";
+            var html="<ul>";
+            for (let i = 0; i < lives; i++) {
+                html+=`
+                <li>
+                    <img src="banana.png" alt="">
+                </li>
+                `;
+            }
+            html+=`
+                <li>
+                    <img src="monkey.png" class="monkey">
+                </li>
+                `;
+
+            html+="</ul>";
+            
+            livesDiv.innerHTML=html;
+
+        }
+
+        renderLives();
+
+    </script>
+</body>
+
+</html>
